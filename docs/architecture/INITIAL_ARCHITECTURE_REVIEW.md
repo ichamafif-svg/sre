@@ -2,7 +2,11 @@
 
 Date: 2026-10-04
 
-Status: Draft for approval before implementation
+Status: Historical architecture baseline.
+
+HISTORICAL SNAPSHOT -- DO NOT USE FOR CURRENT READINESS.
+
+Current status is maintained in `README.md`. Gate A evidence is maintained in `docs/operations/REAL_CONTROL_CORE_PROOF.md`.
 
 ## A. Problem Definition
 

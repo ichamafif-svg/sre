@@ -4,6 +4,8 @@ Date: 2026-10-04
 
 Status: In progress. Phase 1 is not complete.
 
+STATUS: SUPERSEDED FOR CURRENT READINESS BY `docs/operations/REAL_CONTROL_CORE_PROOF.md` AND `README.md`.
+
 Stretch checkpoint update:
 
 - Gate A live proof passed using local installed binaries.
@@ -53,17 +55,15 @@ Sources:
 
 | Component | Version | Status |
 |---|---:|---|
-| Temporal Server | `temporalio/auto-setup:1.29.7` | Compose only, not yet proven live |
-| Temporal Python SDK | `temporalio==1.34.0` | Code integration added |
-| PostgreSQL | `postgres:16.4` | Migration and repository added |
-| OPA | `openpolicyagent/opa:1.7.1-debug` | Rego and CLI adapter added |
+| Temporal Server | Temporal CLI dev server `1.9.1`, server `1.32.0` | `REAL_LOCAL` proof passed |
+| Temporal Python SDK | `temporalio==1.34.0` | `REAL_LOCAL` workflow/activity path proven |
+| PostgreSQL | Postgres.app PostgreSQL `16.15` | `REAL_LOCAL` migration and persistence proven |
+| OPA | `opa 1.7.1` | `REAL_LOCAL` policy execution and fail-closed behavior proven |
 
 ## Known Limitations
 
-- Current execution environment does not have `docker` or `opa` installed, so live compose and OPA CLI smoke tests were not run in this pass.
-- Temporal worker restart proof has not been executed yet.
-- PostgreSQL restart persistence proof has not been executed yet.
-- OPA binary was not available in the current test path, so fail-closed behavior is coded but not integration-tested here.
+- Historical state at the first hardening checkpoint: the environment did not yet have local OPA, Temporal, or PostgreSQL binaries available to this repository.
+- Current state: local binaries were installed under `.tools`, and Gate A passed at `REAL_LOCAL`; see `docs/operations/REAL_CONTROL_CORE_PROOF.md`.
 - GitHub runtime adapter, real sandbox, real coding agent benchmark, scanners, signing, OpenTelemetry, Alertmanager, staging, canary, and rollback remain pending.
 - `V2Workflow` still uses the developer-mode local policy by default for existing local tests; production Temporal path is now separated and ready for live proof.
 
@@ -71,15 +71,15 @@ Sources:
 
 | Integration | Readiness |
 |---|---|
-| Temporal | DESIGN_ONLY, pending REAL_LOCAL proof |
-| PostgreSQL | DESIGN_ONLY, pending REAL_LOCAL proof |
-| OPA | DESIGN_ONLY, pending REAL_LOCAL proof |
-| Local V2 control behavior | LOCAL_FIXTURE |
-| GitHub repository publication | REAL_NONPROD |
+| Temporal | `REAL_LOCAL` |
+| PostgreSQL | `REAL_LOCAL` |
+| OPA | `REAL_LOCAL` |
+| Local V2 control behavior | `LOCAL_FIXTURE` |
+| GitHub repository publication | `REAL_NONPROD` |
 
 ## Next Required Step
 
-Run local Phase 1 infrastructure:
+Historical next step at the earlier checkpoint was to run local Phase 1 infrastructure:
 
 ```bash
 docker compose -f deploy/phase1/docker-compose.yml up -d
@@ -95,3 +95,5 @@ CONTROL_PLANE_DATABASE_URL=postgresql://control_plane:control_plane@localhost:54
 ```
 
 Then kill/restart `scripts/run_temporal_worker.py` during a longer workflow proof and verify no duplicate audit or external mutation rows.
+
+Current next step is Gate B: real issue to real WorkItem to real OPA/Temporal to real sandbox/coding agent to real tests and GitHub PR. No Gate B implementation has started in this document.

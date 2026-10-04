@@ -49,6 +49,6 @@ Status: **GATE A PASSED LOCALLY; GATE B NOT STARTED**
 - Real staging/canary/rollback.
 - Operability model implementation.
 
-## Blocked
+## Next Gate
 
 Gate B has not started yet in this turn. The next step is real agent/sandbox setup against a fixture repository, not the SRE control-plane repository.

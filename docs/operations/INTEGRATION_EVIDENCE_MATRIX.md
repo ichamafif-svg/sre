@@ -9,9 +9,15 @@ Date: 2026-10-04
 | PostgreSQL | Postgres.app PostgreSQL `16.15` | PostgreSQL License | Local server, migrations, repository | REAL_LOCAL | Migration applied; state persisted after server restart | Local Postgres.app binary, not managed production DB |
 | OPA | `opa 1.7.1` | Apache-2.0 | Rego decision schema, CLI adapter, local server | REAL_LOCAL | `opa check`, server evaluation, fail-closed tests | OPA server auth not configured for production |
 | GitHub | Existing connector/SSH | GitHub service | Local push completed previously | REAL_NONPROD | Repo `ichamafif-svg/sre` populated | Runtime GitHub adapter still in-memory |
+| GitHub runtime adapter | In-memory adapter | N/A | Fixture PR/merge adapter only | LOCAL_FIXTURE | Existing local V2 tests | Real GitHub issue-to-PR path not started |
+| Coding agent | Not selected | N/A | Not started | NOT STARTED | None | Gate B next |
 | Sandbox | Existing logical runner | N/A | Still simulated | LOCAL_FIXTURE | Existing adversarial tests | Real process/container isolation pending |
-| Security scanners | Syft/Trivy/Grype planned | Apache-2.0 | Not integrated | DESIGN_ONLY | None | Pending Phase 1 later step |
+| Syft | Planned | Apache-2.0 | Not integrated | DESIGN_ONLY | None | Pending later gate |
+| Trivy | Planned | Apache-2.0 | Not integrated | DESIGN_ONLY | None | Pending later gate |
+| Grype | Planned | Apache-2.0 | Not integrated | DESIGN_ONLY | None | Pending later gate |
 | Cosign | Planned | Apache-2.0 | Not integrated | DESIGN_ONLY | None | Pending Phase 1 later step |
 | OpenTelemetry | Planned | Apache-2.0 | Not integrated | DESIGN_ONLY | None | Pending Phase 1 later step |
 | Prometheus/Alertmanager | Planned | Apache-2.0 | Not integrated | DESIGN_ONLY | None | Pending Phase 1 later step |
 | Staging/canary target | Planned Docker target | N/A | Still in-memory | LOCAL_FIXTURE | Existing e2e tests | Real deployment boundary pending |
+| Rollback | In-memory controller | N/A | Local fixture only | LOCAL_FIXTURE | Existing rollback e2e path | Real runtime rollback pending |
+| Production autonomy | Disabled | N/A | Not enabled | DISABLED | Policy/human gate docs and tests | Future Gate E only after evidence permits |

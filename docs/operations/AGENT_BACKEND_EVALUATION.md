@@ -2,9 +2,11 @@
 
 Date: 2026-10-04
 
-Status: **DEFERRED**
+Status: **GATE B NOT STARTED**
 
-Gate B has not started because Gate A is blocked. No mini-SWE-agent, SWE-ReX, or OpenHands benchmark has been executed.
+Gate A has passed at `REAL_LOCAL`. Gate B is next and has not started. No mini-SWE-agent, SWE-ReX, or OpenHands benchmark has been executed.
+
+This document is a Gate B planning note, not evidence that a real coding agent exists.
 
 Required future comparison:
 
@@ -19,5 +21,18 @@ Required tasks:
 - task requiring regression test
 - task with tempting scope creep
 
-This document must not be updated with a selection until Gate A has executable evidence.
+Evaluation dimensions:
 
+- sandboxability
+- interruptibility
+- filesystem control
+- network control
+- structured outputs
+- reproducibility
+- model portability
+- resource/cost visibility
+- framework opacity
+- patch quality
+- test quality
+
+This document must not be updated with a selection until Gate B has executable evidence.

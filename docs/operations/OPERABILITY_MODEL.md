@@ -2,11 +2,13 @@
 
 Date: 2026-10-04
 
-Status: **DESIGN SEED ONLY**
+Status: **DESIGN SEED -- NOT FROZEN**
 
-Gate C has not started because Gate A is blocked and Gate B is deferred.
+Gate A passed at `REAL_LOCAL`. Gate B is next. Gate C operability modeling has not started as implementation work.
 
-The following concepts are candidates for a minimal first-class Software Operations Plane. They are not frozen and are not implemented as product state yet.
+The Software Operations Plane is intended to become a first-class peer of the managed product's business/domain plane, not an external SRE bot bolted onto logs. Future managed products/components should be able to declare operational metadata that the control plane can evaluate deterministically.
+
+The following concepts are candidates only. They are not frozen and are not implemented as product state yet.
 
 ## Candidate Concepts
 
@@ -44,13 +46,40 @@ Candidate questions:
 - Can it be rolled back or disabled?
 - What is the expected blast radius?
 
+### DependencyReference
+
+A candidate declaration of upstream, downstream, provider, package, service, or runtime dependencies relevant to safe change and recovery.
+
+### HealthContract
+
+A candidate declaration of health signals, service-level expectations, canary checks, and rollback criteria.
+
+### RuntimeReference
+
+A candidate reference to runtime instances, environments, clusters, jobs, or services where a component is observed.
+
+### ReleaseReference
+
+A candidate reference to artifacts, builds, provenance, deployments, feature flags, and release state.
+
 ### Lineage References
 
 Candidate stable chain:
 
-`WorkItem -> Investigation -> AgentRun -> Commit -> PR -> Artifact -> Release -> Deployment -> RuntimeObservation -> Incident -> RemediationWorkItem`
+```text
+WorkItem
+-> Investigation
+-> AgentRun
+-> Commit
+-> PR
+-> Artifact
+-> Release
+-> Deployment
+-> RuntimeObservation
+-> Incident
+-> RemediationWorkItem
+```
 
 ## Status
 
-No schema or enforcement added yet. This is intentionally held until live Gate A/Gate B evidence exists.
-
+No schema or enforcement has been added. This is intentionally held until Gate B and later gates provide evidence for which operational metadata is actually needed.

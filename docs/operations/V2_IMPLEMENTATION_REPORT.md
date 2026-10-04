@@ -2,9 +2,13 @@
 
 Date: 2026-10-04
 
+STATUS: HISTORICAL SNAPSHOT -- DO NOT USE FOR CURRENT READINESS.
+
+Current status is maintained in `README.md`. Gate A evidence is maintained in `docs/operations/REAL_CONTROL_CORE_PROOF.md`.
+
 ## Classification
 
-Production-shaped local vertical slice. Not production-ready.
+Historical V2 scaffold classification: production-shaped local vertical slice, not `PRODUCTION_VERIFIED`.
 
 ## Architecture Built
 
@@ -25,13 +29,13 @@ Implemented a modular monolith under `src/control_plane/` with:
 
 ## Actual Dependency Versions
 
-No third-party runtime dependencies are installed in this local scaffold. Python standard library only.
+At this historical checkpoint, no third-party runtime dependencies were installed in this local scaffold. Python standard library only.
 
-External dependencies are represented as ports/adapters for later integration:
+At this historical checkpoint, external dependencies were represented as ports/adapters for later integration:
 
-- Temporal: not wired yet.
-- PostgreSQL: not wired yet.
-- OPA CLI/server: Rego draft exists; local evaluator mirrors initial policy.
+- Temporal: not wired yet at this checkpoint; later proven `REAL_LOCAL` in Gate A.
+- PostgreSQL: not wired yet at this checkpoint; later proven `REAL_LOCAL` in Gate A.
+- OPA CLI/server: Rego draft existed at this checkpoint; later proven `REAL_LOCAL` in Gate A.
 - GitHub API: in-memory adapter only.
 - Syft/Trivy/Grype/Cosign/SLSA: modeled in verification/build evidence only; real tool execution not wired yet.
 - Argo CD/Argo Rollouts: not wired yet.
@@ -104,14 +108,14 @@ Covered:
 
 ## Chaos / Failure Results
 
-Covered:
+Covered at this historical checkpoint:
 
 - Canary metric degradation stops promotion and rolls back to the previous known-good artifact.
 
-Not yet covered:
+Not yet covered at this historical checkpoint:
 
-- Worker restart.
-- OPA unavailable.
+- Worker restart; later proven in Gate A.
+- OPA unavailable; later fail-closed behavior proven in Gate A.
 - GitHub unavailable.
 - Prometheus unavailable.
 - Scanner timeout.
@@ -151,9 +155,9 @@ No LLM model backend is executed. The fixture backend is deterministic.
 
 ## Known Limitations
 
-- Temporal is not yet running the workflow.
-- PostgreSQL is not yet the state store.
-- OPA is not yet invoked as a live policy engine.
+- Historical state: Temporal was not yet running the workflow. Current state: Temporal is `REAL_LOCAL`.
+- Historical state: PostgreSQL was not yet the state store. Current state: PostgreSQL is `REAL_LOCAL`.
+- Historical state: OPA was not yet invoked as a live policy engine. Current state: OPA is `REAL_LOCAL`.
 - GitHub API is not yet integrated.
 - Real agent backend comparison is not yet executed.
 - Real sandbox isolation is not yet enforced at OS/container level.
@@ -164,7 +168,7 @@ No LLM model backend is executed. The fixture backend is deterministic.
 
 ## Production Readiness Classification
 
-Not production-ready. Suitable for continuing implementation and validating control boundaries.
+Current status is not `PRODUCTION_VERIFIED`. Production autonomy remains disabled.
 
 ## Policy Actions Still Disabled
 
@@ -190,4 +194,3 @@ Proceed to Phase 1 hardening:
 4. Replace fixture agent with the mini-SWE-agent/SWE-ReX versus OpenHands benchmark harness.
 5. Add real OS/container sandboxing.
 6. Add Syft/Trivy/Grype/Cosign integration behind the existing verification/build ports.
-
