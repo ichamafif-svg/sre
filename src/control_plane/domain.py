@@ -131,7 +131,7 @@ class PolicyDecision:
     policy_version: str = "local-v2-0"
 
     def permission_for(self, action: PolicyAction) -> Permission:
-        if self.permissions.get(PolicyAction.BLOCK) == Permission.ALLOW:
+        if action != PolicyAction.BLOCK and self.permissions.get(PolicyAction.BLOCK) == Permission.ALLOW:
             return Permission.DENY
         return self.permissions.get(action, Permission.DENY)
 
@@ -158,4 +158,3 @@ class WorkItem:
 
     def record(self, event: str) -> None:
         self.audit.append(event)
-
