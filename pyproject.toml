@@ -1,0 +1,11 @@
+[project]
+name = "autonomous-sre-control-plane"
+version = "0.1.0"
+description = "Production-shaped autonomous software operations control plane scaffold"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
