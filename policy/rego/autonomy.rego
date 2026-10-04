@@ -33,80 +33,68 @@ security_block if {
   security_status == "SCANNER_FAILED"
 }
 
-permission[action] := decision if {
-  action == "INVESTIGATE"
+permission["INVESTIGATE"] := decision if {
   decision := "ALLOW"
 }
 
-permission[action] := decision if {
-  action == "ROLLBACK"
+permission["ROLLBACK"] := decision if {
   decision := "ALLOW"
 }
 
-permission[action] := decision if {
+permission["EXECUTE_SANDBOX"] := decision if {
   risk != "CRITICAL"
   not forbidden_path_hit
-  action == "EXECUTE_SANDBOX"
   decision := "ALLOW"
 }
 
-permission[action] := decision if {
+permission["OPEN_PR"] := decision if {
   risk != "CRITICAL"
   not forbidden_path_hit
   not security_block
-  action == "OPEN_PR"
   decision := "ALLOW"
 }
 
-permission[action] := decision if {
+permission["AUTO_MERGE"] := decision if {
   risk == "LOW"
   verification_passed
   not forbidden_path_hit
   not security_block
-  action == "AUTO_MERGE"
   decision := "ALLOW"
 }
 
-permission[action] := decision if {
+permission["DEPLOY_STAGING"] := decision if {
   risk != "CRITICAL"
   not forbidden_path_hit
   not security_block
-  action == "DEPLOY_STAGING"
   decision := "ALLOW"
 }
 
-permission[action] := decision if {
+permission["DEPLOY_CANARY"] := decision if {
   risk != "CRITICAL"
   not forbidden_path_hit
   not security_block
-  action == "DEPLOY_CANARY"
   decision := "ALLOW"
 }
 
-permission[action] := decision if {
-  action == "DEPLOY_PRODUCTION"
+permission["DEPLOY_PRODUCTION"] := decision if {
   decision := "HUMAN"
 }
 
-permission[action] := decision if {
-  action == "REQUIRE_HUMAN"
+permission["REQUIRE_HUMAN"] := decision if {
   decision := "ALLOW"
 }
 
-permission[action] := decision if {
-  action == "BLOCK"
+permission["BLOCK"] := decision if {
   risk == "CRITICAL"
   decision := "ALLOW"
 }
 
-permission[action] := decision if {
-  action == "BLOCK"
+permission["BLOCK"] := decision if {
   forbidden_path_hit
   decision := "ALLOW"
 }
 
-permission[action] := decision if {
-  action == "BLOCK"
+permission["BLOCK"] := decision if {
   security_block
   decision := "ALLOW"
 }

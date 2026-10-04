@@ -6,7 +6,12 @@ import os
 from temporalio.client import Client
 from temporalio.worker import Worker
 
-from control_plane.workflows.temporal.activities import advance_state_activity, normalize_signal_activity
+from control_plane.workflows.temporal.activities import (
+    advance_state_activity,
+    evaluate_policy_activity,
+    normalize_signal_activity,
+    reserve_external_mutation_activity,
+)
 from control_plane.workflows.temporal.workflows import WorkItemTemporalWorkflow
 
 
@@ -19,11 +24,15 @@ async def main() -> None:
         client,
         task_queue=task_queue,
         workflows=[WorkItemTemporalWorkflow],
-        activities=[normalize_signal_activity, advance_state_activity],
+        activities=[
+            normalize_signal_activity,
+            evaluate_policy_activity,
+            reserve_external_mutation_activity,
+            advance_state_activity,
+        ],
     )
     await worker.run()
 
 
 if __name__ == "__main__":
     asyncio.run(main())
-

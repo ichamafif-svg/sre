@@ -4,6 +4,12 @@ Date: 2026-10-04
 
 Status: In progress. Phase 1 is not complete.
 
+Stretch checkpoint update:
+
+- Gate A live proof passed using local installed binaries.
+- No transition to Gate B has been made yet.
+- See `docs/operations/REAL_CONTROL_CORE_PROOF.md`.
+
 ## Scope Completed In This Pass
 
 Started the de-simulation phase without changing the V2 domain model:

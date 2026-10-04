@@ -12,7 +12,12 @@ except ImportError:  # pragma: no cover
 if workflow:
     with workflow.unsafe.imports_passed_through():
         from control_plane.domain import WorkItemState
-        from control_plane.workflows.temporal.activities import advance_state_activity, normalize_signal_activity
+        from control_plane.workflows.temporal.activities import (
+            advance_state_activity,
+            evaluate_policy_activity,
+            normalize_signal_activity,
+            reserve_external_mutation_activity,
+        )
 
     ACTIVITY_RETRY_POLICY = RetryPolicy(
         initial_interval=timedelta(seconds=1),
@@ -32,6 +37,19 @@ if workflow:
                 start_to_close_timeout=timedelta(seconds=20),
                 retry_policy=ACTIVITY_RETRY_POLICY,
             )
+            snapshot = await workflow.execute_activity(
+                evaluate_policy_activity,
+                snapshot,
+                start_to_close_timeout=timedelta(seconds=20),
+                retry_policy=ACTIVITY_RETRY_POLICY,
+            )
+            snapshot = await workflow.execute_activity(
+                reserve_external_mutation_activity,
+                args=[snapshot, "gate-a-proof-mutation"],
+                start_to_close_timeout=timedelta(seconds=20),
+                retry_policy=ACTIVITY_RETRY_POLICY,
+            )
+            await workflow.sleep(timedelta(seconds=8))
             for state, reason in (
                 (WorkItemState.TRIAGED.value, "temporal phase1 triage proof"),
                 (WorkItemState.SCOPED.value, "temporal phase1 scope proof"),
@@ -39,11 +57,8 @@ if workflow:
             ):
                 snapshot = await workflow.execute_activity(
                     advance_state_activity,
-                    snapshot,
-                    state,
-                    reason,
+                    args=[snapshot, state, reason],
                     start_to_close_timeout=timedelta(seconds=20),
                     retry_policy=ACTIVITY_RETRY_POLICY,
                 )
             return snapshot
-
